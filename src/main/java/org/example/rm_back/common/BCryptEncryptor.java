@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class BCryptEncryptor {
 
-    public static String encrypt(String origin) {
+    public String encrypt(String origin) {
         return BCrypt.hashpw(origin, BCrypt.gensalt());
     }
 
-    public static boolean isMatch(String origin, String hashed) {
+    public boolean isMatch(String origin, String hashed) {
         try {
             return BCrypt.checkpw(origin, hashed);
         } catch (Exception e) {
