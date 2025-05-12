@@ -8,6 +8,9 @@ import org.example.rm_back.admin.entity.Admin;
 import org.example.rm_back.admin.entity.AdminRole;
 import org.example.rm_back.admin.repository.AdminRepository;
 import org.example.rm_back.common.BCryptEncryptor;
+import org.example.rm_back.global.exception.ApiException;
+import org.example.rm_back.global.exception.ErrorType;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +21,11 @@ public class AdminService {
     private final BCryptEncryptor encryptor;
 
     public AdminResponseDto.Add addAdmin(AdminRequestDto.Add dto){
+
+        if(repository.existsByAccount(dto.getAccount())){
+           throw new ApiException("중복된 account 입니다.", ErrorType.INVALID_PARAMETER, HttpStatus.BAD_REQUEST);
+        }
+
         String roles = AdminRole.toAdminRole(dto.getRole());
         String hashedPassword = encryptor.encrypt(dto.getPassword());
 
