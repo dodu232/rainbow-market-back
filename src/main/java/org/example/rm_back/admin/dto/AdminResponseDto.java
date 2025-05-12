@@ -15,7 +15,8 @@ public class AdminResponseDto {
 
     @Getter
     @AllArgsConstructor
-    public static class SignIn{
+    public static class SignIn {
+
         private String account;
         private String password;
     }

@@ -22,7 +22,7 @@ public class AdminController {
     @PostMapping
     public ResponseEntity<AdminResponseDto.Add> addAdmin(
         @Valid @RequestBody AdminRequestDto.Add dto
-    ){
+    ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.addAdmin(dto));
     }
 }
