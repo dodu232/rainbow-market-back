@@ -2,8 +2,8 @@ package org.example.rm_back.admin.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.rm_back.admin.dto.AuthRequestDto;
-import org.example.rm_back.admin.dto.AuthResponseDto;
+import org.example.rm_back.admin.dto.AdminRequestDto;
+import org.example.rm_back.admin.dto.AdminResponseDto;
 import org.example.rm_back.admin.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class AdminController {
     private final AdminService service;
 
     @PostMapping
-    public ResponseEntity<AuthResponseDto.Add> addAdmin(
-        @Valid @RequestBody AuthRequestDto.Add dto
+    public ResponseEntity<AdminResponseDto.Add> addAdmin(
+        @Valid @RequestBody AdminRequestDto.Add dto
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.addAdmin(dto));
     }
