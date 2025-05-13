@@ -20,10 +20,11 @@ public class AdminService {
     private final AdminRepository repository;
     private final BCryptEncryptor encryptor;
 
-    public AdminResponseDto.Add addAdmin(AdminRequestDto.Add dto){
+    public AdminResponseDto.Add addAdmin(AdminRequestDto.Add dto) {
 
-        if(repository.existsByAccount(dto.getAccount())){
-           throw new ApiException("중복된 account 입니다.", ErrorType.INVALID_PARAMETER, HttpStatus.BAD_REQUEST);
+        if (repository.existsByAccount(dto.getAccount())) {
+            throw new ApiException("중복된 account 입니다.", ErrorType.INVALID_PARAMETER,
+                HttpStatus.BAD_REQUEST);
         }
 
         String roles = AdminRole.toAdminRole(dto.getRole());
@@ -33,5 +34,11 @@ public class AdminService {
 
         Admin saveAdmin = repository.save(admin);
         return new Add(saveAdmin.getId(), saveAdmin.getAccount());
+    }
+
+    public Admin getAdminByAccount(String account) {
+        return repository.findByAccount(account)
+            .orElseThrow(() -> new ApiException("존재하지 않는 account 입니다.", ErrorType.INVALID_PARAMETER,
+                HttpStatus.BAD_REQUEST));
     }
 }

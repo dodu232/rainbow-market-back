@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,5 +12,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-server:
-  port: 8081
+
+jwt:
+  exp: 180000
+  secret: qB+Dwtc9p60Q236SBIkjixlk+jHFb1jpUZuhDaoEXAiR3vv9IHgsqBevE6mBMkp3xOEw0r7zngQ1Zx2tm2gOGA==

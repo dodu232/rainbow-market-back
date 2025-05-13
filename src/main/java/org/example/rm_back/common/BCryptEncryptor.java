@@ -13,10 +13,9 @@ public class BCryptEncryptor {
         return BCrypt.hashpw(origin, BCrypt.gensalt());
     }
 
-    public boolean isMatch(String origin, String hashed) {
-        try {
-            return BCrypt.checkpw(origin, hashed);
-        } catch (Exception e) {
+    public void isMatch(String origin, String hashed) {
+        boolean matches = BCrypt.checkpw(origin, hashed);
+        if (!matches) {
             throw new ApiException("비밀번호 불일치", ErrorType.INVALID_PARAMETER, HttpStatus.BAD_REQUEST);
         }
     }

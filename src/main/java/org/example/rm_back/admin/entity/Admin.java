@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,8 @@ import org.example.rm_back.common.BaseTime;
 @Getter
 public class Admin extends BaseTime {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class Admin extends BaseTime {
     @Column(nullable = false)
     private String roles;
 
-    public Admin(String account, String password, String role){
+    public Admin(String account, String password, String role) {
         this.account = account;
         this.password = password;
         this.roles = role;

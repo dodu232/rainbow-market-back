@@ -1,9 +1,21 @@
 ###
-POST http://localhost:8081/api/v1/admin
+POST {{base}}/api/v1/admin
 Content-Type: application/json
 
 {
-    "account": "hama",
-    "role": ["notice_read", "notice_WRITE"],
-    "password": "qqq123"
+  "account": "hama",
+  "role": [
+    "notice_read",
+    "notice_WRITE"
+  ],
+  "password": "qqq123"
+}
+
+###
+POST {{base}}/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "account": "hama",
+  "password": "qqq123"
 }

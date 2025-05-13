@@ -1,6 +1,5 @@
 package org.example.rm_back.common;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
@@ -21,5 +20,5 @@ public class BaseTime {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private  LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 }
