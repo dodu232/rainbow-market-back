@@ -1,4 +1,4 @@
-package org.example.rm_back.admin.entity;
+package org.example.rm_back.admin.enums;
 
 import java.util.Arrays;
 import lombok.Getter;
