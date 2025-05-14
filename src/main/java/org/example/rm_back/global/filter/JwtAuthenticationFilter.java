@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.startsWith("/auth/signin")
+        return path.startsWith("api/v1/auth/signin")
             || HttpMethod.OPTIONS.matches(request.getMethod());
     }
 
@@ -36,9 +36,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
             try {
                 Claims claims = jwtProvider.validToken(token);
+                String roles = claims.get("roles", String.class);
+                if(roles == null){
+                    roles = "";
+                }
                 UserPrincipal principal = new UserPrincipal(
                     claims.getSubject(),
-                    claims.get("roles", String.class)
+                    roles
                 );
                 req.setAttribute("currentUser", principal);
             } catch (JwtException e) {

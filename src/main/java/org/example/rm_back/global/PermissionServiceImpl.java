@@ -1,5 +1,6 @@
 package org.example.rm_back.global;
 
+import java.util.Arrays;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.example.rm_back.admin.enums.AdminRole;
@@ -11,18 +12,28 @@ import org.springframework.stereotype.Service;
 public class PermissionServiceImpl implements PermissionService {
 
     private final Map<String, String[]> permissionMap = Map.of(
-        "/admin/add", new String[]{AdminRole.SUPER.name()}
+        "/api/v1/admin", new String[]{AdminRole.SUPER.name()}
     );
 
     @Override
     public boolean hasAccess(UserPrincipal user, String path, String method) {
-        String[] requiredRoles = permissionMap.getOrDefault(path, new String[0]);
+        if (!permissionMap.containsKey(path)) {
+            return false;
+        }
+
+        String[] requiredRoles = permissionMap.get(path);
+        if (requiredRoles.length == 0) {
+            return true;
+        }
+
+        String[] userRoles = AdminRole.toRoleArray(user.getRoles());
 
         for (String s : requiredRoles) {
-            if (user.getRoles().contains(s)) {
+            if (Arrays.stream(userRoles)
+                .anyMatch(role -> role.equalsIgnoreCase(s))) {
                 return true;
             }
         }
-        return requiredRoles.length == 0;
+        return false;
     }
 }
