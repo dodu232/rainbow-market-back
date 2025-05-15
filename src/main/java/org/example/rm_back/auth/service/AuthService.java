@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.example.rm_back.admin.entity.Admin;
-import org.example.rm_back.admin.entity.AdminRole;
+import org.example.rm_back.admin.enums.AdminRole;
 import org.example.rm_back.admin.service.AdminService;
 import org.example.rm_back.auth.dto.AuthRequestDto;
 import org.example.rm_back.auth.dto.AuthResponseDto;
@@ -28,7 +28,7 @@ public class AuthService {
         String[] roleArr = AdminRole.toRoleArray(findAdmin.getRoles());
 
         String token = jwtProvider.generateToken(findAdmin.getAccount(), roleArr);
-        response.setHeader("accessToken", token);
+        response.setHeader("accessToken", "Bearer " + token);
 
         return new AuthResponseDto.SingIn(findAdmin.getAccount(), LocalDateTime.now());
     }

@@ -1,17 +1,17 @@
 package org.example.rm_back.auth.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.example.rm_back.admin.entity.Admin;
-import org.example.rm_back.admin.entity.AdminRole;
 import org.example.rm_back.admin.service.AdminService;
-import org.example.rm_back.auth.dto.AuthRequestDto;
 import org.example.rm_back.auth.dto.AuthRequestDto.SignIn;
 import org.example.rm_back.auth.dto.AuthResponseDto;
 import org.example.rm_back.common.BCryptEncryptor;
@@ -48,7 +48,7 @@ class AuthServiceTest {
     private String roles;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         String account = "haha";
         String password = "hahah1212";
 
@@ -61,7 +61,9 @@ class AuthServiceTest {
     @DisplayName("존재하지 않는 계정으로 로그인 시 ApiException 발생")
     void signIn_whenAccountNotFound_thenThrowsApiException() {
         // given
-        given(adminService.getAdminByAccount(dto.getAccount())).willThrow(new ApiException("존재하지 않는 account 입니다.", ErrorType.INVALID_PARAMETER, HttpStatus.BAD_REQUEST));
+        given(adminService.getAdminByAccount(dto.getAccount())).willThrow(
+            new ApiException("존재하지 않는 account 입니다.", ErrorType.INVALID_PARAMETER,
+                HttpStatus.BAD_REQUEST));
 
         // when & then
         assertThrows(ApiException.class, () -> authService.singIn(dto, response));

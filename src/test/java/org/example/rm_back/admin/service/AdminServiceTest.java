@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import org.example.rm_back.admin.dto.AdminRequestDto;
 import org.example.rm_back.admin.entity.Admin;
-import org.example.rm_back.admin.entity.AdminRole;
+import org.example.rm_back.admin.enums.AdminRole;
 import org.example.rm_back.admin.repository.AdminRepository;
 import org.example.rm_back.common.BCryptEncryptor;
 import org.junit.jupiter.api.Test;
