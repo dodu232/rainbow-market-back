@@ -43,6 +43,9 @@ dependencies {
 
     // 암호화
     implementation 'org.mindrot:jbcrypt:0.4'
+
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {

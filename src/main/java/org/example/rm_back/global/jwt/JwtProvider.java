@@ -33,12 +33,13 @@ public class JwtProvider {
         this.exp = exp;
     }
 
-    public String generateToken(String account, String[] roleArr) {
+    public String generateToken(String account, String[] roleArr, String jti) {
         String roles = String.join(",", roleArr);
 
         return Jwts.builder()
             .subject(account)
             .claim("roles", roles)
+            .claim("jti", jti)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + exp))
             .signWith(key)

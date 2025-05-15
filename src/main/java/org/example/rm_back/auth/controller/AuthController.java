@@ -3,9 +3,11 @@ package org.example.rm_back.auth.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.rm_back.auth.UserPrincipal;
 import org.example.rm_back.auth.dto.AuthRequestDto;
 import org.example.rm_back.auth.dto.AuthResponseDto;
 import org.example.rm_back.auth.service.AuthService;
+import org.example.rm_back.global.annotation.AuthUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,5 +28,10 @@ public class AuthController {
         HttpServletResponse response
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(service.singIn(dto, response));
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<String> signOut(@AuthUser UserPrincipal user) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.signOut(user));
     }
 }
