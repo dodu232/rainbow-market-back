@@ -44,7 +44,7 @@ public enum AdminRole {
         return Arrays.stream(trimmed.split(","))
             .map(String::trim)
             .filter(s -> !s.isEmpty())
-            .map(String::toLowerCase)
+            .map(String::toUpperCase)
             .toArray(String[]::new);
     }
 }
