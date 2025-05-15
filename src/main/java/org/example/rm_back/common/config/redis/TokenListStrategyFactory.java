@@ -26,7 +26,8 @@ public class TokenListStrategyFactory {
     public <T extends TokenListService> T get(TokenListType type, Class<T> clazz) {
         TokenListService svc = strategies.get(type);
         if (svc == null) {
-            throw new ApiException("No strategy for type " + type, ErrorType.NO_RESOURCE, HttpStatus.BAD_REQUEST);
+            throw new ApiException("No strategy for type " + type, ErrorType.NO_RESOURCE,
+                HttpStatus.BAD_REQUEST);
         }
         return clazz.cast(svc);
     }

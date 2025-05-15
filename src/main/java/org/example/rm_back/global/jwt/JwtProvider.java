@@ -54,7 +54,8 @@ public class JwtProvider {
             throw new ApiException("잘못된 토큰", ErrorType.INVALID_TOKEN,
                 HttpStatus.UNAUTHORIZED);
         } catch (ExpiredJwtException e) {
-            log.warn("만료된 JWT 토큰: subject={}, expiredAt={}", e.getClaims().getSubject(), e.getClaims().getExpiration());
+            log.warn("만료된 JWT 토큰: subject={}, expiredAt={}", e.getClaims().getSubject(),
+                e.getClaims().getExpiration());
             throw new ApiException("만료된 토큰", ErrorType.INVALID_TOKEN,
                 HttpStatus.UNAUTHORIZED); // 토큰이 만료된 경우 예외 처리
         } catch (UnsupportedJwtException | IllegalArgumentException e) {

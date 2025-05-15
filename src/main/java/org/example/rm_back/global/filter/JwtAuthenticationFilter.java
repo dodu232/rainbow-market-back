@@ -10,7 +10,6 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.example.rm_back.auth.UserPrincipal;
 import org.example.rm_back.common.config.redis.TokenBlackListService;
-import org.example.rm_back.common.config.redis.TokenJtiListService;
 import org.example.rm_back.common.config.redis.TokenListStrategyFactory;
 import org.example.rm_back.common.config.redis.TokenListType;
 import org.example.rm_back.global.jwt.JwtProvider;
@@ -44,14 +43,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Claims claims = jwtProvider.validToken(token);
 
                 String jti = claims.get("jti", String.class);
-                if(strategyFactory.get(TokenListType.BLACKLIST, TokenBlackListService.class)
-                    .isTokenContain(jti)){
+                if (strategyFactory.get(TokenListType.BLACKLIST, TokenBlackListService.class)
+                    .isTokenContain(jti)) {
                     res.sendError(HttpStatus.UNAUTHORIZED.value(), "블랙리스트 등록된 토큰");
                     return;
                 }
 
                 String roles = claims.get("roles", String.class);
-                if(roles == null){
+                if (roles == null) {
                     roles = "";
                 }
                 UserPrincipal principal = new UserPrincipal(

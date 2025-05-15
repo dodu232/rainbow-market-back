@@ -30,11 +30,11 @@ public class AuthService {
         Admin findAdmin = adminService.getAdminByAccount(dto.getAccount());
         encryptor.isMatch(dto.getPassword(), findAdmin.getPassword());
 
-        String userJtiKey = "user:" +  findAdmin.getAccount() + ":jti";
+        String userJtiKey = "user:" + findAdmin.getAccount() + ":jti";
         String oldJti = strategyFactory.get(TokenListType.CURRENT_JTI, TokenJtiListService.class)
             .getJit(userJtiKey);
 
-        if(oldJti != null){
+        if (oldJti != null) {
             strategyFactory.get(TokenListType.BLACKLIST)
                 .addTokenToList(oldJti, userJtiKey);
         }
@@ -44,7 +44,7 @@ public class AuthService {
         String newJti = UUID.randomUUID().toString();
         String token = jwtProvider.generateToken(findAdmin.getAccount(), roleArr, newJti);
         strategyFactory.get(TokenListType.CURRENT_JTI)
-                .addTokenToList(newJti, userJtiKey);
+            .addTokenToList(newJti, userJtiKey);
 
         response.setHeader("accessToken", "Bearer " + token);
 
@@ -53,7 +53,7 @@ public class AuthService {
 
     public String signOut(UserPrincipal user) {
         Admin findAdmin = adminService.getAdminByAccount(user.account());
-        String userJtiKey = "user:" +  findAdmin.getAccount() + ":jti";
+        String userJtiKey = "user:" + findAdmin.getAccount() + ":jti";
 
         String oldJti = strategyFactory.get(TokenListType.CURRENT_JTI, TokenJtiListService.class)
             .getJit(userJtiKey);
