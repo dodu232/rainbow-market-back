@@ -4,13 +4,11 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 import org.example.rm_back.admin.enums.AdminRole;
 import org.example.rm_back.auth.UserPrincipal;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class PermissionServiceImpl implements PermissionService {
 
     private final Map<String, Map<String, Set<AdminRole>>> permissionMap = Map.of(
