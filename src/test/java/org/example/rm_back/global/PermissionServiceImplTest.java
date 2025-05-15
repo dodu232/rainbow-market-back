@@ -26,7 +26,8 @@ class PermissionServiceImplTest {
     }
 
     @SuppressWarnings("unchecked")
-    private void setPermissionService(Map<String, Map<String, Set<AdminRole>>> map) throws Exception {
+    private void setPermissionService(Map<String, Map<String, Set<AdminRole>>> map)
+        throws Exception {
         Field f = PermissionServiceImpl.class.getDeclaredField("permissionMap");
         f.setAccessible(true);
         f.set(service, map);

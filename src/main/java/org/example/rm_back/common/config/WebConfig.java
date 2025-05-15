@@ -25,6 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthorizationInterceptor(permissionService))
             .addPathPatterns("/api/**")
-            .excludePathPatterns("/api/v1/auth/signin");
+            .excludePathPatterns("/api/v1/auth/signin")
+            .excludePathPatterns("/api/v1/auth/signout")
+        ;
     }
 }
